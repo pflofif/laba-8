@@ -10,9 +10,9 @@ namespace C_sharp
     {
         public int Compare(IClient x, IClient y)
         {
-            if (x.CountOfTickets > y.CountOfTickets) return -1;
+            if (x != null && x.CountOfTickets > y.CountOfTickets) return -1;
 
-            if (x.CountOfTickets < y.CountOfTickets) return 1;
+            if (x != null && x.CountOfTickets < y.CountOfTickets) return 1;
 
             return 0;
         }
