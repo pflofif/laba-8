@@ -59,6 +59,7 @@ namespace C_sharp
                     z++;
                     Console.ResetColor();
                 }
+
             }
         }
         public string BueNewSeat()
