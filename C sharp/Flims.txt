@@ -1,0 +1,1 @@
+﻿{"nameOfFilm": "djdjd", "duration":1.5,"descriptionOfTheFilm":"fkkfkfkdkfdksjnfk","baseCost":"gffffff"}
