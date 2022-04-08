@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Windows.Forms.VisualStyles;
 
 namespace C_sharp
 {
@@ -34,14 +35,21 @@ namespace C_sharp
             }
             clients.Add(new Viewer(nameAndSurnameOfNewClient));
         } //ЗАПОВНЮЄТЬСЯ КЛІЄНТАМИ НА ФІЛЬМ(КОНКРЕТНИМИ)
+
+        //private void DiscountForRegularViewer()
+        //{
+        //    Console.WriteLine("DiscountForRegularViewer");
+        //    var tempReg = new RegularViewer();
+        //    RegularViewer tempRegularViewer = (RegularViewer)clients[0];
+
+        //    tempRegularViewer.Discount();
+        //    Console.WriteLine("ThIS PRSON HAS A DICOUNT: "); tempRegularViewer.PrintAllInfoAboutClient();
+        //    return;
+
+        //    Console.WriteLine("NO DICOUNT???");
+        //}
         private void SortViewers()
         {
-            if (clients.Count == 0)
-            {
-                Console.WriteLine("NO CLIENTS");
-                return;
-            }
-
             Console.WriteLine("\nSORTED LIST OF VIEWERS:");
             var clientsComparer = new ClientsComparer();
 
@@ -134,7 +142,13 @@ namespace C_sharp
                         films.ListOfAllMovies();
                         break;
                     case (int)Menu.SortViewer:
+                        if (clients.Count == 0)
+                        {
+                            Console.WriteLine("NO CLIENTS");
+                            break;
+                        }
                         SortViewers();
+                        //DiscountForRegularViewer();
                         break;
                     default:
                         Console.WriteLine("Error choice");

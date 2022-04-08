@@ -8,9 +8,9 @@ namespace C_sharp
     internal class CinemaSchedule : AllFilms
     {
         private int openCasa = 5, closeCasa = 23;
-        //Всі MovieTheater спокійно можна замінити на ISeating
-        private Dictionary<int, MovieTheater> scheduler = new Dictionary<int, MovieTheater>();
-        private Dictionary<int, MovieTheater> ScheduleOfFilms()
+        //Всі CinemaHallInBuilding спокійно можна замінити на ISeating
+        private Dictionary<int, CinemaHallInBuilding> scheduler = new Dictionary<int, CinemaHallInBuilding>();
+        private Dictionary<int, CinemaHallInBuilding> ScheduleOfFilms()
         {
             DateTime todayDay = DateTime.Today;
             DateTime movieScheduleForTheDay = new DateTime(todayDay.Year, todayDay.Month, todayDay.Day, openCasa, 0, 0);
@@ -28,7 +28,7 @@ namespace C_sharp
                     {
                         return scheduler;
                     }
-                    scheduler.Add(i++, new MovieTheater($"{fl.nameOfFilm} :" +
+                    scheduler.Add(i++, new CinemaHallInBuilding($"{fl.nameOfFilm} :" +
                         $" start - {movieScheduleForTheDay.ToLongTimeString()}, " +
                         $" end - {movieScheduleForTheDay.AddMinutes(durationOfFilm * 60).ToLongTimeString()}\n", FilmsList[j++].baseCost));
 
@@ -41,12 +41,12 @@ namespace C_sharp
         {
             if(scheduler.Count == 0 || scheduler == null) ScheduleOfFilms();
 
-            foreach (KeyValuePair<int, MovieTheater> i in scheduler)
+            foreach (KeyValuePair<int, CinemaHallInBuilding> i in scheduler)
             {
                 Console.WriteLine($"{i.Key} : {i.Value.NameOfHall}");
             }
         }
-        public MovieTheater ConcreteMovieTheatreAndTime()
+        public CinemaHallInBuilding ConcreteMovieTheatreAndTime()
         {
             PrintScheduler();
             Console.WriteLine("CHOOSE ONE FILM AND HALL TOU WANT:");

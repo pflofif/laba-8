@@ -12,24 +12,28 @@ namespace C_sharp
             //var hall = new CinemaSchedule().ConcreteMovieTheatreAndTime();
             //var viewer = new Viewer();
 
-            Viewer vie = new RegularViewer();
-            vie.CostForAllTickets = 900;
-            vie.Discount();
-            vie.PrintAllInfoAboutClient();
-            //var viwer2 = new Viewer();
-            //viewer.PrintAllInfoAboutClient();
-            //viewer.BueNewTicket(hall);
-            //viewer.PrintAllInfoAboutClient();
+            //RegularViewer vrRegularViewer = new RegularViewer();
+            //vrRegularViewer.CostForAllTickets = 400;
+            //vrRegularViewer.PrintAllInfoAboutClient();
+
+            //Viewer vie = vrRegularViewer;
+            //vie.Discount();
+
+            //vie.PrintAllInfoAboutClient();
 
             //viwer2 = viewer;
             //viwer2.PrintAllInfoAboutClient();
 
-            //var schedule = new CinemaSchedule();
+            var schedule = new CinemaSchedule();
 
-            //var caseTick = new FilmCase(ref schedule);
+            var caseTick = new FilmCase(ref schedule);
 
-            //caseTick.CaseOfTicket();
+            caseTick.CaseOfTicket();
 
+            // var cinemacircle = new CircleCinema("dfgh", 100);
+            // CircleCinema vff = new CinemaHallInBuilding("fgg", 100);
+            // cinemacircle.DisplaySeats();
+            //// vff.DisplaySeats();
             Console.Write("enter any key to close!");
             Console.ReadKey();
         }

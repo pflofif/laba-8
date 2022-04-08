@@ -9,6 +9,7 @@ namespace C_sharp
         int CountOfTickets { get; }
         void BueNewTicket(ISeating hallSeating);
         void PrintAllInfoAboutClient();
+        void Discount();
     }
     class Viewer:IClient
     {
@@ -19,7 +20,7 @@ namespace C_sharp
 
         public string NameAndSurnameOfClient { get; }
         public double CostForAllTickets { get => costForAllTickets; set => costForAllTickets = value; }
-        public int CountOfTickets { get => tickets.Count; }
+        public int CountOfTickets => tickets.Count;
 
         public Viewer(string name = anonimName)
         {
@@ -60,10 +61,9 @@ namespace C_sharp
     class RegularViewer : Viewer
     {
         public RegularViewer(){}
-
         public override void Discount()
         {
-            CostForAllTickets *= 0.5;
+            CostForAllTickets *= 0.75;
         }
     }
 
