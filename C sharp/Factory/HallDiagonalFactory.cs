@@ -9,7 +9,7 @@ namespace C_sharp.Factory
         private int costOfOneTicket;
         private int countOfSeats;
 
-        public HallDiagonalFactory(string nameOfHall, int costOfOneTicket, int countOfSeats = 42)
+        public HallDiagonalFactory(string nameOfHall, int costOfOneTicket, int countOfSeats = 66)
         {
             this.nameOfHall = nameOfHall;
             this.costOfOneTicket = costOfOneTicket;

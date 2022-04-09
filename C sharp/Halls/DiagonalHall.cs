@@ -51,7 +51,6 @@ namespace C_sharp.Halls
         }
         public override string BueNewSeat()
         {
-            CountOfSeat /= 2;
             Console.WriteLine("\n" + NameOfHall);
             string allSeats = "";
             while (true)

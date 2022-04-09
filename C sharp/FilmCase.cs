@@ -126,16 +126,16 @@ namespace C_sharp
                         {
                             Console.WriteLine("NO CLIENTS"); break;
                         }
-                        //ConcreteViewer().PrintAllInfoAboutClient();
-                        var tempViewer = ConcreteViewer();
-                        tempViewer.PrintAllInfoAboutClient();
+                        ConcreteViewer().PrintAllInfoAboutClient();
+
+                        //var tempViewer = ConcreteViewer();
+                        //tempViewer.PrintAllInfoAboutClient();
                         break;
                     case (int)Menu.MovieScheduler:
                         films.PrintScheduler();
                         break;
                     case (int)Menu.WatchSeatsInHall:
-                        var hall = films.ConcreteMovieTheatreAndTime();
-                        hall.DisplaySeats();
+                        /*var hall = */ films.ConcreteMovieTheatreAndTime().DisplaySeats();
                         break;
                     case (int)Menu.PrintFilms:
                         films.ListOfAllMovies();

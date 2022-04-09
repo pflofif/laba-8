@@ -16,7 +16,7 @@ namespace C_sharp
             DateTime movieScheduleForTheDay = new DateTime(todayDay.Year, todayDay.Month, todayDay.Day, openCasa, 0, 0);
 
             double countOfHoursPerDay = 0;
-            int i = 1,j = 0;
+            int indexOfHall = 1, j = 0;
             while (true)
             {
                 foreach (var fl in FilmsList)
@@ -26,11 +26,10 @@ namespace C_sharp
                     countOfHoursPerDay += durationOfFilm;
                     if (countOfHoursPerDay > closeCasa - openCasa) return;
 
-                    string info = $"{fl.nameOfFilm} : start - {movieScheduleForTheDay.ToLongTimeString()}, end - {movieScheduleForTheDay.AddMinutes(durationOfFilm * 60).ToLongTimeString()}\n";
-                    scheduler.Add(i++, CreateConcreteHall(RandomHall(), info, FilmsList[j++].baseCost).CreateHall());
-                    ///scheduler.Add(i++, new Halls.SquareHall($"{fl.nameOfFilm} :" +
-                    ///                                   $" start - {movieScheduleForTheDay.ToLongTimeString()}, " +
-                    ///                                   $" end - {movieScheduleForTheDay.AddMinutes(durationOfFilm * 60).ToLongTimeString()}\n", FilmsList[j++].baseCost));
+                    var info = $"{fl.nameOfFilm} : start - {movieScheduleForTheDay.ToLongTimeString()}," +
+                                  $" end - {movieScheduleForTheDay.AddMinutes(durationOfFilm * 60).ToLongTimeString()}\n";
+
+                    scheduler.Add(indexOfHall++, CreateConcreteHall(RandomHall(), info, FilmsList[j++].baseCost).CreateHall());
                     movieScheduleForTheDay = movieScheduleForTheDay.AddMinutes(durationOfFilm * 60 + 15);
                 }
                 j = 0;

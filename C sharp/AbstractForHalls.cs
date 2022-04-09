@@ -7,7 +7,6 @@
         void DisplaySeats();
         string BueNewSeat();
     }
-
     abstract class AbstractHall : IHall
     {
         protected AbstractHall(string nameOfHall, double baseCost, int countSeats)
