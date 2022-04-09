@@ -1,42 +1,15 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using C_sharp.Properties;
 
-namespace C_sharp
+namespace C_sharp.Halls
 {
-    interface ISeating
+    class SquareHall : AbstractHall
     {
-        double CostOfAllTicketsInThisOperationForConcreteClient { get; set; }
-        string NameOfHall { get; }
-        void DisplaySeats();
-        string BueNewSeat();
-    }
-
-    abstract class AbstractHall : ISeating
-    {
-        protected AbstractHall(string nameOfHall, double baseCost, int countSeats = 42)
-        {
-            NameOfHall = nameOfHall;
-            CostOfOneTicket = baseCost;
-            CountOfSeat = countSeats;
-        }
-
-        protected int CountOfSeat { get; set; }
-        protected double CostOfOneTicket { get; set; }
-
-        public double CostOfAllTicketsInThisOperationForConcreteClient { get; set; }
-        public string NameOfHall { get; set; }
-        public abstract void DisplaySeats();
-        public abstract string BueNewSeat();
-    }
-
-    class CinemaHallInBuilding : AbstractHall
-    {
-        private int SeatsInRow { get; set; }
+        private int SeatsInRow { get; }
         private Dictionary<int, string> soldTickets = new Dictionary<int, string>();
 
-        public CinemaHallInBuilding(string nameOfHall, double baseCost, int countSeats = 42, int seatsRow = 6)
+        public SquareHall(string nameOfHall, double baseCost, int countSeats = 42, int seatsRow = 6)
             : base(nameOfHall, baseCost, countSeats)
         {
             SeatsInRow = seatsRow;
@@ -97,37 +70,5 @@ namespace C_sharp
                 }
             }
         }
-    }
-
-    class CircleCinema : AbstractHall
-    {
-        public CircleCinema(string nameOfHall, double baseCost, int countSeats = 42) : base(nameOfHall, baseCost, countSeats) { }
-
-        public override void DisplaySeats()
-        {
-            int z = 1, j = 1;
-            CountOfSeat /= 2;
-            while (CountOfSeat > 0)
-            {
-                for (int i = 0; i < z; i++)
-                {
-                    Console.Write(j.ToString().PadRight(3));
-                    j++;
-                }
-                z++; Console.WriteLine();
-                CountOfSeat-=2;
-            }
-        }
-
-        public override string BueNewSeat()
-        {
-            throw new NotImplementedException();
-        }
-
-        //public static implicit operator CircleCinema(CinemaHallInBuilding v)
-        //{
-        //    v.DisplaySeats();
-        //    return CinemaHallInBuilding();
-        //}
     }
 }

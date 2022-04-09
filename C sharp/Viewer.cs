@@ -7,7 +7,7 @@ namespace C_sharp
     {
         string NameAndSurnameOfClient { get; }
         int CountOfTickets { get; }
-        void BueNewTicket(ISeating hallSeating);
+        void BueNewTicket(IHall hallHall);
         void PrintAllInfoAboutClient();
         void Discount();
     }
@@ -36,15 +36,15 @@ namespace C_sharp
             costForAllTickets = objViewer.costForAllTickets;
             NameAndSurnameOfClient = objViewer.NameAndSurnameOfClient;
         }
-        public void BueNewTicket(ISeating hallSeating)
+        public void BueNewTicket(IHall hallHall)
         {
-            string []allSeats = hallSeating.BueNewSeat().Split(' ');
+            string []allSeats = hallHall.BueNewSeat().Split(' ');
 
-            CostForAllTickets += hallSeating.CostOfAllTicketsInThisOperationForConcreteClient;
+            CostForAllTickets += hallHall.CostOfAllTicketsInThisOperationForConcreteClient;
 
             foreach(string i in allSeats)
             {
-                tickets.Add(new Ticket(i, hallSeating.NameOfHall.Remove(hallSeating.NameOfHall.LastIndexOf("\n", StringComparison.Ordinal))));
+                tickets.Add(new Ticket(i, hallHall.NameOfHall.Remove(hallHall.NameOfHall.LastIndexOf("\n", StringComparison.Ordinal))));
             }
         }
         public void PrintAllInfoAboutClient()

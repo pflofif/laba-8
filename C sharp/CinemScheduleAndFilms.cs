@@ -2,15 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using C_sharp.Factory;
 
 namespace C_sharp
 {
     internal class CinemaSchedule : AllFilms
     {
         private int openCasa = 5, closeCasa = 23;
-        //Всі CinemaHallInBuilding спокійно можна замінити на ISeating
-        private Dictionary<int, CinemaHallInBuilding> scheduler = new Dictionary<int, CinemaHallInBuilding>();
-        private Dictionary<int, CinemaHallInBuilding> ScheduleOfFilms()
+        private Dictionary<int, IHall> scheduler = new Dictionary<int, IHall>();
+        private void ScheduleOfFilms()
         {
             DateTime todayDay = DateTime.Today;
             DateTime movieScheduleForTheDay = new DateTime(todayDay.Year, todayDay.Month, todayDay.Day, openCasa, 0, 0);
@@ -24,29 +24,29 @@ namespace C_sharp
                     double durationOfFilm = fl.duration;
 
                     countOfHoursPerDay += durationOfFilm;
-                    if (countOfHoursPerDay > closeCasa - openCasa)
-                    {
-                        return scheduler;
-                    }
-                    scheduler.Add(i++, new CinemaHallInBuilding($"{fl.nameOfFilm} :" +
-                        $" start - {movieScheduleForTheDay.ToLongTimeString()}, " +
-                        $" end - {movieScheduleForTheDay.AddMinutes(durationOfFilm * 60).ToLongTimeString()}\n", FilmsList[j++].baseCost));
+                    if (countOfHoursPerDay > closeCasa - openCasa) return;
 
+                    string info = $"{fl.nameOfFilm} : start - {movieScheduleForTheDay.ToLongTimeString()}, end - {movieScheduleForTheDay.AddMinutes(durationOfFilm * 60).ToLongTimeString()}\n";
+                    scheduler.Add(i++, CreateConcreteHall(RandomHall(), info, FilmsList[j++].baseCost).CreateHall());
+                    ///scheduler.Add(i++, new Halls.SquareHall($"{fl.nameOfFilm} :" +
+                    ///                                   $" start - {movieScheduleForTheDay.ToLongTimeString()}, " +
+                    ///                                   $" end - {movieScheduleForTheDay.AddMinutes(durationOfFilm * 60).ToLongTimeString()}\n", FilmsList[j++].baseCost));
                     movieScheduleForTheDay = movieScheduleForTheDay.AddMinutes(durationOfFilm * 60 + 15);
                 }
                 j = 0;
             }
         } //Створення Конкретного списку MovieTheatre
+        private int RandomHall() => new Random(Guid.NewGuid().GetHashCode()).Next(1, 4);
         public void PrintScheduler()
         {
             if(scheduler.Count == 0 || scheduler == null) ScheduleOfFilms();
 
-            foreach (KeyValuePair<int, CinemaHallInBuilding> i in scheduler)
+            foreach (KeyValuePair<int, IHall> i in scheduler)
             {
                 Console.WriteLine($"{i.Key} : {i.Value.NameOfHall}");
             }
         }
-        public CinemaHallInBuilding ConcreteMovieTheatreAndTime()
+        public IHall ConcreteMovieTheatreAndTime()
         {
             PrintScheduler();
             Console.WriteLine("CHOOSE ONE FILM AND HALL TOU WANT:");
@@ -57,6 +57,19 @@ namespace C_sharp
             } while (choose > scheduler.Count || choose == 0);
 
             return scheduler[choose];
+        }
+        private HallFactory CreateConcreteHall(int num, string nameAndInfo , int cost)
+        {
+            switch (num)
+            {
+                case 1:
+                    return new HallSquareFactory(nameAndInfo, cost);
+                case 2:
+                    return new HallDiagonalFactory(nameAndInfo, cost);
+                case 3:
+                    return new HallRectangleFactory(nameAndInfo, cost);
+            }
+            return null;
         }
     }
     internal class AllFilms
