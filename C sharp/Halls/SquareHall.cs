@@ -4,7 +4,7 @@ using C_sharp.Properties;
 
 namespace C_sharp.Halls
 {
-    class SquareHall : AbstractHall
+    sealed class SquareHall : AbstractHall
     {
         private int SeatsInRow { get; }
         private Dictionary<int, string> soldTickets = new Dictionary<int, string>();
