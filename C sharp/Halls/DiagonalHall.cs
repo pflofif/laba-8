@@ -8,7 +8,7 @@ namespace C_sharp.Halls
     {
         private Dictionary<int, string> soldTickets = new Dictionary<int, string>();
 
-        public DiagonalHall(string nameOfHall, double baseCost, int countSeats) : base(nameOfHall, baseCost, countSeats) { }
+        public DiagonalHall(string nameOfHall, double baseCost, int countSeats = 66) : base(nameOfHall, baseCost, countSeats) { }
         private int ChooseSeat()
         {
             int chooseSeat;
@@ -24,30 +24,32 @@ namespace C_sharp.Halls
             if (ticket % 2 == 0) return CostOfOneTicket;
             return CostOfOneTicket * 2;
         }
-        public override void DisplaySeats()
+        public override string ToString()
         {
-            int z = 1, j = 1;
-            var TEMPCountOfSeat = CountOfSeat;
+            int numberOfCurrentRow = 1, numberOfCurrentSeat = 1;
+            var tempCountOfSeat = CountOfSeat;
 
-            while (TEMPCountOfSeat > 0)
+            while (tempCountOfSeat > 0)
             {
-                for (int i = 0; i < z; i++)
+                for (int i = 0; i < numberOfCurrentRow; i++)
                 {
-                    if (--TEMPCountOfSeat < 0)
+                    if (--tempCountOfSeat < 0)
                     {
-                        Console.WriteLine(); return;
+                        Console.WriteLine(); return string.Empty;
                     }
 
-                    if (soldTickets.ContainsKey(j)) Console.ForegroundColor = ConsoleColor.DarkGray;
-                    else Console.ForegroundColor = j % 2 == 0 ? ConsoleColor.Cyan : ConsoleColor.Magenta;
+                    if (soldTickets.ContainsKey(numberOfCurrentSeat)) Console.ForegroundColor = ConsoleColor.DarkGray;
+                    else Console.ForegroundColor = numberOfCurrentSeat % 2 == 0 ? ConsoleColor.Cyan : ConsoleColor.Magenta;
 
-                    Console.Write(j.ToString().PadRight(6));
+                    Console.Write(numberOfCurrentSeat.ToString().PadRight(6));
 
                     Console.ResetColor();
-                    j++;
+                    numberOfCurrentSeat++;
                 }
-                z++; Console.WriteLine();
+                numberOfCurrentRow++; Console.WriteLine();
             }
+
+            return string.Empty;
         }
         public override string BueNewSeat()
         {
@@ -55,7 +57,7 @@ namespace C_sharp.Halls
             string allSeats = "";
             while (true)
             {
-                DisplaySeats();
+                ToString();
                 var choose = ChooseSeat();
                 if (choose != 0)
                 {

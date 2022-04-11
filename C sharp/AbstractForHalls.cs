@@ -4,7 +4,7 @@
     {
         double CostOfAllTicketsInThisOperationForConcreteClient { get; set; }
         string NameOfHall { get; }
-        void DisplaySeats();
+        //void DisplaySeats();
         string BueNewSeat();
     }
     abstract class AbstractHall : IHall
@@ -21,7 +21,7 @@
 
         public double CostOfAllTicketsInThisOperationForConcreteClient { get; set; }
         public string NameOfHall { get; set; }
-        public abstract void DisplaySeats();
+        public abstract override string ToString();
         public abstract string BueNewSeat();
     }
 }

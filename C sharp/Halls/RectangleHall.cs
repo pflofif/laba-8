@@ -25,7 +25,7 @@ namespace C_sharp.Halls
 
             return chooseSeat;
         }
-        public override void DisplaySeats()
+        public override string ToString()
         {
             int z = 1;
             for (int i = 0; i < CountOfSeat / SeatsInRow; i++, Console.WriteLine())
@@ -42,6 +42,7 @@ namespace C_sharp.Halls
                     Console.ResetColor();
                 }
             }
+            return String.Empty;
         }
         private double TicketPrice(int ticket)
         {
@@ -55,7 +56,7 @@ namespace C_sharp.Halls
             string allSeats = "";
             while (true)
             {
-                DisplaySeats();
+                ToString();
                 var choose = ChooseSeat();
                 if (choose != 0)
                 {

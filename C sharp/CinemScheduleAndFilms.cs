@@ -9,7 +9,7 @@ namespace C_sharp
     internal class CinemaSchedule : AllFilms
     {
         private int openCasa = 5, closeCasa = 23;
-        private Dictionary<int, IHall> scheduler = new Dictionary<int, IHall>();
+        private readonly Dictionary<int, IHall> scheduler = new Dictionary<int, IHall>();
         private void ScheduleOfFilms()
         {
             DateTime todayDay = DateTime.Today;
@@ -36,7 +36,7 @@ namespace C_sharp
             }
         } //Створення Конкретного списку MovieTheatre
         private int RandomHall() => new Random(Guid.NewGuid().GetHashCode()).Next(1, 4);
-        public void PrintScheduler()
+        public override string ToString()
         {
             if(scheduler.Count == 0 || scheduler == null) ScheduleOfFilms();
 
@@ -44,10 +44,12 @@ namespace C_sharp
             {
                 Console.WriteLine($"{i.Key} : {i.Value.NameOfHall}");
             }
+
+            return string.Empty;
         }
         public IHall ConcreteMovieTheatreAndTime()
         {
-            PrintScheduler();
+            ToString();
             Console.WriteLine("CHOOSE ONE FILM AND HALL TOU WANT:");
             int choose;
             do

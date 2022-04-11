@@ -8,7 +8,6 @@ namespace C_sharp
         string NameAndSurnameOfClient { get; }
         int CountOfTickets { get; }
         void BueNewTicket(IHall hallHall);
-        void PrintAllInfoAboutClient();
         void Discount();
     }
     class Viewer:IClient
@@ -47,7 +46,7 @@ namespace C_sharp
                 tickets.Add(new Ticket(i, hallHall.NameOfHall.Remove(hallHall.NameOfHall.LastIndexOf("\n", StringComparison.Ordinal))));
             }
         }
-        public void PrintAllInfoAboutClient()
+        public override string ToString()
         {
             Console.WriteLine($"\nname and surname of viewer:  {NameAndSurnameOfClient} ");
             foreach (var i in tickets)
@@ -55,8 +54,10 @@ namespace C_sharp
                 i.PrintInfo();
             }
             Console.WriteLine($"{NameAndSurnameOfClient} must pay : {CostForAllTickets} dollars!!!!!(please)\n");
+            return string.Empty;
         }
         public virtual void Discount() { costForAllTickets *= 1; }
+
     }
     class RegularViewer : Viewer
     {
@@ -66,29 +67,5 @@ namespace C_sharp
             CostForAllTickets *= 0.75;
         }
     }
-
-    //class Grid
-    //{
-    //    private int sub, det;
-
-    //    //int getsub()
-    //    //{
-    //    //    return sub;}
-    //    //int getdet()
-    //    //{
-    //    //    return det;
-    //    //}
-    //    public Grid(int sub, int det)
-    //    {
-    //        this.sub = sub;
-    //        this.det = det;
-    //    }
-    //    public Grid(){}
-    //    Grid plusss(Grid num)
-    //    {
-    //        Grid smt = new Grid(this.sub + num.sub, this.det + num.det);
-    //        return smt;
-    //    }
-    //}
 
 }

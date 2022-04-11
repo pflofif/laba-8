@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Security.RightsManagement;
 
 namespace C_sharp
 {
@@ -9,7 +10,6 @@ namespace C_sharp
     {
         protected List<IClient> clients = new List<IClient>();
         protected abstract void NewClient();
-        protected abstract void PrintListOfClients();
         protected abstract void ClientBueTicketsForFilm();
         public abstract void CaseOfTicket();
 
@@ -17,7 +17,7 @@ namespace C_sharp
     class FilmCase : AbstractCasa
     {
         //private List<Viewer> clients = new List<Viewer>();
-        private CinemaSchedule films;
+        private readonly CinemaSchedule films;
         private enum Menu
         {
             End = 0, CreateClient, BueTicket, PrintInfoAboutClient, MovieScheduler, WatchSeatsInHall, PrintFilms, SortViewer
@@ -27,6 +27,7 @@ namespace C_sharp
         {
             Console.WriteLine("Enter your name , if you dont want click 'enter': ");
             var nameAndSurnameOfNewClient = Console.ReadLine();
+
             if (nameAndSurnameOfNewClient != null && nameAndSurnameOfNewClient.Length == 0)
             {
                 clients.Add(new Viewer());
@@ -34,7 +35,6 @@ namespace C_sharp
             }
             clients.Add(new Viewer(nameAndSurnameOfNewClient));
         } //ЗАПОВНЮЄТЬСЯ КЛІЄНТАМИ НА ФІЛЬМ(КОНКРЕТНИМИ)
-
         //private void DiscountForRegularViewer()
         //{
         //    Console.WriteLine("DiscountForRegularViewer");
@@ -42,7 +42,7 @@ namespace C_sharp
         //    RegularViewer tempRegularViewer = (RegularViewer)clients[0];
 
         //    tempRegularViewer.Discount();
-        //    Console.WriteLine("ThIS PRSON HAS A DICOUNT: "); tempRegularViewer.PrintAllInfoAboutClient();
+        //    Console.WriteLine("ThIS PRSON HAS A DICOUNT: "); tempRegularViewer.ToString();
         //    return;
 
         //    Console.WriteLine("NO DICOUNT???");
@@ -53,11 +53,11 @@ namespace C_sharp
             var clientsComparer = new ClientsComparer();
 
             clients.Sort(clientsComparer);
-            PrintListOfClients();
+            ToString();
         }
         private IClient ConcreteViewer()
         {
-            PrintListOfClients();
+            ToString();
             int chooseClient;
             do
             {
@@ -78,7 +78,7 @@ namespace C_sharp
             ConcreteViewer().BueNewTicket(films.ConcreteMovieTheatreAndTime());
             Console.WriteLine("\nYOU SUCCESSFULLY BYE A TICKET");
         }
-        protected override void PrintListOfClients()
+        public override string ToString()
         {
             int i = 1;
             foreach (var viewer in clients)
@@ -86,7 +86,8 @@ namespace C_sharp
                 Console.WriteLine(i++ + ". " + viewer.NameAndSurnameOfClient + " ; count on tickets: " + viewer.CountOfTickets);
             }
             Console.WriteLine();
-        }
+            return string.Empty;
+        } //вивід списку клієнтів
         private void CreateJsonFileOfClients()
         {
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(clients);
@@ -117,29 +118,32 @@ namespace C_sharp
                     case (int)Menu.CreateClient:
                         NewClient();
                         break;
+
                     case (int)Menu.BueTicket:
                         ClientBueTicketsForFilm();
                         break;
+
                     case (int)Menu.PrintInfoAboutClient:
                         Console.WriteLine();
                         if (clients.Count == 0)
                         {
                             Console.WriteLine("NO CLIENTS"); break;
                         }
-                        ConcreteViewer().PrintAllInfoAboutClient();
+                        ConcreteViewer().ToString();
+                        break;
 
-                        //var tempViewer = ConcreteViewer();
-                        //tempViewer.PrintAllInfoAboutClient();
-                        break;
                     case (int)Menu.MovieScheduler:
-                        films.PrintScheduler();
+                        films.ToString();
                         break;
+
                     case (int)Menu.WatchSeatsInHall:
-                        /*var hall = */ films.ConcreteMovieTheatreAndTime().DisplaySeats();
+                        /*var hall = */ films.ConcreteMovieTheatreAndTime().ToString();
                         break;
+
                     case (int)Menu.PrintFilms:
                         films.ListOfAllMovies();
                         break;
+
                     case (int)Menu.SortViewer:
                         if (clients.Count == 0)
                         {
@@ -149,6 +153,7 @@ namespace C_sharp
                         SortViewers();
                         //DiscountForRegularViewer();
                         break;
+
                     default:
                         Console.WriteLine("Error choice");
                         break;
